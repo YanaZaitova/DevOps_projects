@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile_Part_5
+  proxy:
+    build: proxy/
+    ports:
+      - "80:8080"

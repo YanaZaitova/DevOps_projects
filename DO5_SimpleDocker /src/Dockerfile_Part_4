@@ -1,0 +1,14 @@
+FROM nginx
+
+COPY ./server/ /server/
+
+RUN apt-get update -y ; \
+    apt-get install -y gcc \
+    spawn-fcgi \
+    libfcgi-dev ; \
+    gcc server/mini_serv.c -lfcgi -o ./server/server ;\
+    chmod -R 755 /server/server.sh 
+
+WORKDIR /server/
+
+ENTRYPOINT [ "./server.sh" ]
