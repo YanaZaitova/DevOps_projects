@@ -1,0 +1,17 @@
+#!/bin/bash
+
+TIMEZONE="$(cat /etc/timezone) UTC $(date +"%Z")"
+USER="$(whoami)"
+OS="$(lsb_release -d -s)"
+DATE="$(date +"%d %B %Y %T")"
+UPTIME="$(uptime -p | awk '{print $2" "$3}')"
+UPTIME_SEC="$(cat /proc/uptime | awk '{printf $1" ""seconds"}')"
+IP="$(ip route get 1.1.1.1 | awk '{print $7}')"
+MASK="$(ifconfig | awk 'NR==2 {print $4}')"
+GATEWAY="$(ip route | grep default | awk '{print $3}')"
+RAM_TOTAL="$(free -m | awk 'NR==2 {printf "%.3f Gb", $2/1024}')"
+RAM_USED="$(free -m | awk 'NR==2 {printf "%.3f Gb", $3/1024}')"
+RAM_FREE="$(free -m | awk 'NR==2 {printf "%.3f Gb", $4/1024}')"
+SPACE_ROOT="$(df /root | awk 'NR==2 {printf "%.2f MB", $2/1024}')"
+SPACE_ROOT_USED="$(df /root | awk 'NR==2 {printf "%.2f MB", $3/1024}')"
+SPACE_ROOT_FREE="$(df /root | awk 'NR==2 {printf "%.2f MB", $4/1024}')"
